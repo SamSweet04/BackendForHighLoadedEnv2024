@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Author: {{ post.author }}</p>
+    <p>Created on: {{ post.created_at }}</p>
+
+    {% if user.is_authenticated and user == post.author %}
+        <a href="{% url 'post_edit' post.id %}">Edit</a>
+        <a href="{% url 'post_delete' post.id %}">Delete</a>
+    {% endif %}
+
+    <h2>Comments</h2>
+    {% for comment in post.comments.all %}
+        <div>
+            <p>{{ comment.author }}: {{ comment.text }}</p>
+            <p>Posted on: {{ comment.created_at }}</p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h3>Leave a comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Add Comment</button>
+        </form>
+    {% else %}
+        <p>You must be <a href="{% url 'login' %}">logged in</a> to leave a comment.</p>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

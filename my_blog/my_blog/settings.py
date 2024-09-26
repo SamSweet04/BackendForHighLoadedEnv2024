@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-linyx&_%-s#5pbh1n)mqj1=4q2$9tngpowkgx&of16^=0ipnuv
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# settings.py
+AUTH_USER_MODEL = 'auth.User'
 
 
 # Application definition
@@ -69,6 +71,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_blog.wsgi.application'
+STATIC_URL = '/templates/blog/'
+LOGIN_REDIRECT_URL = '/blog/'
+LOGOUT_REDIRECT_URL = '/blog/'
+
 
 
 # Database

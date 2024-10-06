@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+</head>
+<body>
+    {% load cache %}
+    <div class="recent-comments">
+        <h3>Recent Comments</h3>
+        {% cache 15 recent_comments post.id %}
+            <ul>
+                {% for comment in post.comments.all %}
+                    <li>{{ comment.author }}: {{ comment.content }}</li>
+                {% endfor %}
+            </ul>
+        {% endcache %}
+    </div>
+</body>
+</html>

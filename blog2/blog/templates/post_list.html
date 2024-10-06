@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts with Comments</title>
+</head>
+<body>
+    <h1>Posts and Comments</h1>
+    {% for post in posts %}
+        <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+        <p>{{ post.content }}</p>
+        <h3>Comments:</h3>
+        <ul>
+            {% for comment in post.comments.all %}
+                <li>{{ comment.author }}: {{ comment.content }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>

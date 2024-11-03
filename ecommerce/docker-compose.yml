@@ -1,0 +1,105 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus.yml
+    ports:
+      - "9092:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  grafana_data:
+
+#version: '3'
+#services:
+#  db:
+#    image: postgres:14
+#    environment:
+#      POSTGRES_DB: ecommerce
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    ports:
+#      - "5433:5432"
+#
+#  web:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/app
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+#      - redis
+#
+#  celery:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-celery
+#    command: celery -A ecommerce worker --loglevel=info
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - redis
+#      - rabbitmq
+#
+#  celery-beat:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-celery
+#    command: celery -A ecommerce beat --loglevel=info
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - redis
+#      - rabbitmq
+#
+#  redis:
+#    image: redis:6
+#    ports:
+#      - "6380:6379"
+#
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    environment:
+#      RABBITMQ_DEFAULT_USER: guest
+#      RABBITMQ_DEFAULT_PASS: guest
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#
+#  prometheus:
+#    image: prom/prometheus
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus.yml
+#    command:
+#      '--config.file=/etc/prometheus.yml'
+#    ports:
+#      - "9090:9090"
+#
+#  grafana:
+#    image: grafana/grafana
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=admin
+#    ports:
+#      - "3001:3000"
+#    volumes:
+#      - grafana-storage:/var/lib/grafana
+#
+#volumes:
+#  postgres_data:
+#  grafana-storage:

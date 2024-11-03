@@ -64,6 +64,7 @@ except socket.herror:
 
 ROOT_URLCONF = 'blog2.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

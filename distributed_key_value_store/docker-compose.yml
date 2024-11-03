@@ -1,0 +1,137 @@
+services:
+  django1:
+    build: .
+    container_name: django1
+    environment:
+      - DJANGO_SETTINGS_MODULE=myapp.settings
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8000"
+    networks:
+      - app-network
+    depends_on:
+      - db
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+  django2:
+    build: .
+    container_name: django2
+    environment:
+      - DJANGO_SETTINGS_MODULE=myapp.settings
+    volumes:
+      - .:/app
+    ports:
+      - "8002:8000"
+    networks:
+      - app-network
+    depends_on:
+      - db
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx.conf
+    depends_on:
+      - django1
+      - django2
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: ["postgres", "-c", "wal_level=replica", "-c", "max_wal_senders=10", "-c", "max_replication_slots=10"]
+
+  db_replica:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5434:5432"
+    networks:
+      - app-network
+    depends_on:
+      - db
+    volumes:
+      - postgres_replica_data:/var/lib/postgresql/data  # Persistent volume
+    command:
+      [
+        "postgres",
+        "-c", "hot_standby=on",
+        "-c", "primary_conninfo=host=db port=5432 user=postgres password=postgres"
+      ]
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    networks:
+      - app-network
+
+  logstash:
+      image: docker.elastic.co/logstash/logstash:7.17.3
+      volumes:
+        - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      ports:
+        - "5044:5044"
+      depends_on:
+        - elasticsearch
+      networks:
+        - app-network
+
+  kibana:
+      image: docker.elastic.co/kibana/kibana:7.17.3
+      environment:
+        ELASTICSEARCH_URL: "http://elasticsearch:9200"
+      ports:
+        - "5601:5601"
+      depends_on:
+        - elasticsearch
+      networks:
+        - app-network
+volumes:
+  postgres_data:
+  postgres_replica_data:
+  grafana_data:
+
+
+networks:
+  app-network:
+    driver: bridge

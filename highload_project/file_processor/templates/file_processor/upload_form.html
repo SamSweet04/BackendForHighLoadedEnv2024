@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Upload Your File</h1>
+    <!-- Form for file upload -->
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" id="fileInput" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Upload Status</h2>
+    <!-- Table to display upload status -->
+    <table id="statusTable" border="1">
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            // Periodically fetch upload status every 5 seconds
+            setInterval(fetchStatus, 5000);
+
+            // Function to fetch status
+            function fetchStatus() {
+                $.get("{% url 'file_processor:upload_status' %}", function(data) {
+                    const tableBody = $("#statusTable tbody");
+                    tableBody.empty(); // Clear existing rows
+
+                    // Populate table with status data
+                    data.forEach(item => {
+                        const row = `<tr>
+                            <td>${item.file}</td>
+                            <td>${item.status}</td>
+                            <td>${item.updated_at}</td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                }).fail(function(xhr) {
+                    console.error("Failed to fetch status:", xhr.responseText);
+                });
+            }
+
+            // Handle file upload
+            $("#uploadForm").on("submit", function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                $.ajax({
+                    url: "{% url 'file_processor:upload' %}",
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert(response.message);
+                        fetchStatus();
+                    },
+                    error: function(xhr) {
+                        alert("Error: " + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

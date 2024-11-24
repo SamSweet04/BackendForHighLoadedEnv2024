@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Processing Status</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>File Upload and Processing Status</h1>
+
+    <table id="statusTable" border="1">
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            setInterval(fetchStatus, 5000);
+
+            function fetchStatus() {
+                $.ajax({
+                    url: "{% url 'file_processor:upload_status' %}",
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDYyNTIzLCJpYXQiOjE3MzI0NjIyMjMsImp0aSI6ImFkZmE5YmI5MzQ5YjQwYTRiZDBhNmFmOTM2MWYzNGVhIiwidXNlcl9pZCI6Nn0.uGRfZI56v79XAxznGqnxqtsOo-gVK9zZlfc446CyUyo" // Replace with valid token
+                    },
+                    success: function(data) {
+                        const tableBody = $("#statusTable tbody");
+                        tableBody.empty(); // Clear existing rows
+
+                        data.forEach(item => {
+                            const row = `<tr>
+                                <td>${item.file}</td>
+                                <td>${item.status}</td>
+                                <td>${item.updated_at}</td>
+                            </tr>`;
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error("Error fetching status:", xhr.responseText);
+                    }
+                });
+            }
+
+            // Fetch status immediately on load
+            fetchStatus();
+        });
+    </script>
+</body>
+</html>

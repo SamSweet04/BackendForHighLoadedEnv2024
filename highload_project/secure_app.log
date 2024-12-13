@@ -1,0 +1,50 @@
+Watching for file changes with StatReloader
+/Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+INFO 2024-11-24 11:27:25,442 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:29:45,800 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+INFO 2024-11-24 11:29:46,230 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:30:13,316 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/tasks/views.py changed, reloading.
+INFO 2024-11-24 11:30:13,700 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:31:35,706 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/tasks/views.py changed, reloading.
+INFO 2024-11-24 11:31:36,069 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:31:59,096 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+INFO 2024-11-24 11:31:59,487 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:32:21,301 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/tasks/views.py changed, reloading.
+INFO 2024-11-24 11:32:21,648 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:33:36,200 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/tasks/views.py changed, reloading.
+INFO 2024-11-24 11:33:36,618 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:33:46,085 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/accounts/apps.py changed, reloading.
+INFO 2024-11-24 11:33:46,413 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:33:58,859 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/accounts/apps.py changed, reloading.
+INFO 2024-11-24 11:33:59,119 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:37:19,688 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/accounts/apps.py changed, reloading.
+INFO 2024-11-24 11:37:19,981 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:37:40,955 autoreload Watching for file changes with StatReloader
+INFO 2024-11-24 11:37:51,431 autoreload /Users/saulearystanbek/Documents/GitHub/BackendForHighLoadedEnv2024/highload_project/highload_project/settings.py changed, reloading.
+Successful login by user: sake from IP: 127.0.0.1
+Successful login by user: admin from IP: 127.0.0.1
+Failed login attempt for user: admin from IP: 127.0.0.1
+Failed login attempt for user: admin from IP: 127.0.0.1
+Failed login attempt for user: admin from IP: 127.0.0.1
+Successful login by user: admin from IP: 127.0.0.1
+Successful login by user: sara from IP: 127.0.0.1
+Failed login attempt for user: saule from IP: 127.0.0.1
+Successful login by user: Saule222 from IP: 127.0.0.1
+Successful login by user: sake from IP: 127.0.0.1
